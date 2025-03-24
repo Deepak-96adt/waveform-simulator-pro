@@ -71,16 +71,20 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Draw input sine wave (yellow) - REDUCED IN SIZE
+    // Draw input sine wave (yellow) with continuous flow
     const drawInputWave = () => {
       ctx.strokeStyle = '#ffff00';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
+      const cycleWidth = width / 3; // Width of one complete cycle
+      const scrollOffset = (time * 5) % cycleWidth; // Scrolling effect based on time
+      
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI; // Convert position to angle
         // Reduce amplitude to only use 2 rows (1/4 of height)
-        const y = height / 2 + Math.sin(t) * (height / 4) * amplitude;
+        const y = height / 2 + Math.sin(t) * (height / 8) * amplitude;
         
         if (x === 0) {
           ctx.moveTo(x, y);
@@ -92,16 +96,20 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Draw output wave for Class-B amplifier (green for positive, red for negative)
+    // Draw output wave for Class-B amplifier with continuous flow
     const drawClassBOutputWave = () => {
-      // For positive half-cycle (green) - REDUCED IN SIZE
+      const cycleWidth = width / 3; // Width of one complete cycle
+      const scrollOffset = (time * 5) % cycleWidth; // Scrolling effect based on time
+      
+      // For positive half-cycle (green)
       ctx.strokeStyle = '#00ff00';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
-        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        let y = Math.sin(t) * (height / 8) * amplitude; // Reduced to 1/8 height
         // Only draw positive half
         y = y > 0 ? height / 2 - y : height / 2;
         
@@ -114,14 +122,15 @@ const WaveformGraph = ({ type }) => {
       
       ctx.stroke();
       
-      // For negative half-cycle (red) - REDUCED IN SIZE
+      // For negative half-cycle (red)
       ctx.strokeStyle = '#ff0000';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
-        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        let y = Math.sin(t) * (height / 8) * amplitude; // Reduced to 1/8 height
         // Only draw negative half
         y = y < 0 ? height / 2 - y : height / 2;
         
@@ -135,16 +144,20 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Class-A amplifier output (for future expansion)
+    // Class-A amplifier output with continuous flow
     const drawClassAOutputWave = () => {
       ctx.strokeStyle = '#00ffff';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
+      const cycleWidth = width / 3;
+      const scrollOffset = (time * 5) % cycleWidth;
+      
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5;
-        // Reduced to 1/4 height
-        const y = height / 2 + Math.sin(t) * (height / 4) * amplitude;
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        // Reduced to 1/8 height
+        const y = height / 2 + Math.sin(t) * (height / 8) * amplitude;
         
         if (x === 0) {
           ctx.moveTo(x, y);
@@ -156,16 +169,20 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Class-AB amplifier output
+    // Class-AB amplifier output with continuous flow
     const drawClassABOutputWave = () => {
+      const cycleWidth = width / 3;
+      const scrollOffset = (time * 5) % cycleWidth;
+      
       // Draw positive half with slight crossover (green)
       ctx.strokeStyle = '#00ff00';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        let y = Math.sin(t) * (height / 8) * amplitude; // Reduced to 1/8 height
         // Draw positive half with slight crossover
         y = y > -0.1 ? height / 2 - y : height / 2;
         
@@ -184,8 +201,9 @@ const WaveformGraph = ({ type }) => {
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        let y = Math.sin(t) * (height / 8) * amplitude; // Reduced to 1/8 height
         // Draw negative half with slight crossover
         y = y < 0.1 ? height / 2 - y : height / 2;
         
@@ -199,15 +217,19 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Class-C amplifier output
+    // Class-C amplifier output with continuous flow
     const drawClassCOutputWave = () => {
       ctx.strokeStyle = '#00ff00';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
+      const cycleWidth = width / 3;
+      const scrollOffset = (time * 5) % cycleWidth;
+      
       for (let x = 0; x <= width; x++) {
-        const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
+        const position = (x + scrollOffset) % width;
+        const t = position / cycleWidth * 2 * Math.PI;
+        let y = Math.sin(t) * (height / 8) * amplitude; // Reduced to 1/8 height
         // Only draw the peaks of positive half cycles
         y = y > 0.5 ? height / 2 - y : height / 2;
         
