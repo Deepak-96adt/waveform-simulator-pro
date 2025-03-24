@@ -8,6 +8,8 @@ const WaveformGraph = ({ type }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
@@ -69,7 +71,7 @@ const WaveformGraph = ({ type }) => {
       ctx.stroke();
     };
 
-    // Draw input sine wave (yellow)
+    // Draw input sine wave (yellow) - REDUCED IN SIZE
     const drawInputWave = () => {
       ctx.strokeStyle = '#ffff00';
       ctx.lineWidth = 2;
@@ -77,7 +79,8 @@ const WaveformGraph = ({ type }) => {
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
-        const y = height / 2 + Math.sin(t) * (height / 2 - 10) * amplitude;
+        // Reduce amplitude to only use 2 rows (1/4 of height)
+        const y = height / 2 + Math.sin(t) * (height / 4) * amplitude;
         
         if (x === 0) {
           ctx.moveTo(x, y);
@@ -91,14 +94,14 @@ const WaveformGraph = ({ type }) => {
 
     // Draw output wave for Class-B amplifier (green for positive, red for negative)
     const drawClassBOutputWave = () => {
-      // For positive half-cycle (green)
+      // For positive half-cycle (green) - REDUCED IN SIZE
       ctx.strokeStyle = '#00ff00';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
-        let y = Math.sin(t) * (height / 2 - 10) * amplitude;
+        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
         // Only draw positive half
         y = y > 0 ? height / 2 - y : height / 2;
         
@@ -111,14 +114,14 @@ const WaveformGraph = ({ type }) => {
       
       ctx.stroke();
       
-      // For negative half-cycle (red)
+      // For negative half-cycle (red) - REDUCED IN SIZE
       ctx.strokeStyle = '#ff0000';
       ctx.lineWidth = 2;
       ctx.beginPath();
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5; // 3 cycles across the canvas
-        let y = Math.sin(t) * (height / 2 - 10) * amplitude;
+        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
         // Only draw negative half
         y = y < 0 ? height / 2 - y : height / 2;
         
@@ -140,7 +143,8 @@ const WaveformGraph = ({ type }) => {
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5;
-        const y = height / 2 + Math.sin(t) * (height / 2 - 10) * amplitude;
+        // Reduced to 1/4 height
+        const y = height / 2 + Math.sin(t) * (height / 4) * amplitude;
         
         if (x === 0) {
           ctx.moveTo(x, y);
@@ -161,7 +165,7 @@ const WaveformGraph = ({ type }) => {
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 2 - 10) * amplitude;
+        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
         // Draw positive half with slight crossover
         y = y > -0.1 ? height / 2 - y : height / 2;
         
@@ -181,7 +185,7 @@ const WaveformGraph = ({ type }) => {
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 2 - 10) * amplitude;
+        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
         // Draw negative half with slight crossover
         y = y < 0.1 ? height / 2 - y : height / 2;
         
@@ -203,7 +207,7 @@ const WaveformGraph = ({ type }) => {
       
       for (let x = 0; x <= width; x++) {
         const t = x / width * 2 * Math.PI * 3 + time * 5;
-        let y = Math.sin(t) * (height / 2 - 10) * amplitude;
+        let y = Math.sin(t) * (height / 4) * amplitude; // Reduced to 1/4 height
         // Only draw the peaks of positive half cycles
         y = y > 0.5 ? height / 2 - y : height / 2;
         

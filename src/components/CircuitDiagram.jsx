@@ -28,9 +28,12 @@ const CircuitDiagram = () => {
       {/* Main circuit frame */}
       <svg viewBox="0 0 400 300" className="max-w-full max-h-full">
         {/* Input lines */}
-        <line x1="20" y1="150" x2="100" y2="150" stroke="black" strokeWidth="2" />
+        <line x1="20" y1="150" x2="70" y2="150" stroke="black" strokeWidth="2" />
+        
+        {/* Vertical input lines (left side) */}
+        <line x1="30" y1="100" x2="30" y2="200" stroke="black" strokeWidth="2" />
         <line x1="40" y1="110" x2="40" y2="190" stroke="black" strokeWidth="2" />
-        <line x1="60" y1="120" x2="60" y2="180" stroke="black" strokeWidth="2" />
+        <line x1="50" y1="120" x2="50" y2="180" stroke="black" strokeWidth="2" />
         
         {/* Upper transistor (NPN) */}
         <circle cx="150" cy="100" r="25" fill="#cccccc" stroke="black" strokeWidth="2" style={getAnimationStyle('positive')} />
@@ -55,8 +58,8 @@ const CircuitDiagram = () => {
         <path d="M180 40 Q185 40 185 45 Q185 50 175 50 Q165 50 175 55 Q185 60 175 65 Q165 70 175 75 Q185 80 185 85 Q185 90 180 90 L150 90 Z" fill="none" stroke="black" strokeWidth="2" />
         
         {/* Connecting wires */}
-        <line x1="100" y1="100" x2="125" y2="100" stroke="black" strokeWidth="2" />
-        <line x1="100" y1="200" x2="125" y2="200" stroke="black" strokeWidth="2" />
+        <line x1="70" y1="150" x2="125" y2="100" stroke="black" strokeWidth="2" />
+        <line x1="70" y1="150" x2="125" y2="200" stroke="black" strokeWidth="2" />
         <line x1="175" y1="100" x2="210" y2="100" stroke="black" strokeWidth="2" />
         <line x1="175" y1="200" x2="210" y2="200" stroke="black" strokeWidth="2" />
         <line x1="210" y1="100" x2="210" y2="150" stroke="black" strokeWidth="2" />
@@ -64,17 +67,21 @@ const CircuitDiagram = () => {
         
         {/* Output lines */}
         <line x1="210" y1="150" x2="280" y2="150" stroke="black" strokeWidth="2" />
-        <line x1="260" y1="110" x2="260" y2="190" stroke="black" strokeWidth="2" />
-        <line x1="280" y1="120" x2="280" y2="180" stroke="black" strokeWidth="2" />
         
-        {/* Green waveform snippet */}
+        {/* Vertical output lines (right side) */}
+        <line x1="290" y1="100" x2="290" y2="200" stroke="black" strokeWidth="2" />
+        <line x1="300" y1="110" x2="300" y2="190" stroke="black" strokeWidth="2" />
+        <line x1="310" y1="120" x2="310" y2="180" stroke="black" strokeWidth="2" />
+        <line x1="280" y1="150" x2="320" y2="150" stroke="black" strokeWidth="2" />
+        
+        {/* Green waveform snippet (top) */}
         <g transform="translate(160, 30)" style={getAnimationStyle('positive')}>
           <rect x="0" y="0" width="80" height="40" fill="black" />
           <path d="M0 20 Q20 20 25 5 Q30 -10 40 5 Q50 20 55 5 Q60 -10 80 5" 
                 fill="none" stroke="#00ff00" strokeWidth="2" />
         </g>
         
-        {/* Red waveform snippet */}
+        {/* Red waveform snippet (bottom) */}
         <g transform="translate(160, 230)" style={getAnimationStyle('negative')}>
           <rect x="0" y="0" width="80" height="40" fill="black" />
           <path d="M0 20 Q20 20 25 35 Q30 50 40 35 Q50 20 55 35 Q60 50 80 35" 
