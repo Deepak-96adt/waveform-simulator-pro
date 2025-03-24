@@ -1,7 +1,7 @@
 
-import { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-const SimulationContext = createContext();
+const SimulationContext = createContext(null);
 
 export const SimulationProvider = ({ children }) => {
   const [isRunning, setIsRunning] = useState(false);
@@ -85,4 +85,10 @@ export const SimulationProvider = ({ children }) => {
   );
 };
 
-export const useSimulation = () => useContext(SimulationContext);
+export const useSimulation = () => {
+  const context = useContext(SimulationContext);
+  if (context === null) {
+    throw new Error('useSimulation must be used within a SimulationProvider');
+  }
+  return context;
+};

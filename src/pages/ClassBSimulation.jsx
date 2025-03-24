@@ -13,21 +13,6 @@ const ClassBSimulation = () => {
   const navigate = useNavigate();
   const { simulationType, resetSimulation } = useSimulation();
   
-  // Get the display name based on simulation type
-  const getSimulationTitle = () => {
-    switch (simulationType) {
-      case 'class-a':
-        return 'Class-A Power Amplifier';
-      case 'class-ab':
-        return 'Class-AB Power Amplifier';
-      case 'class-c':
-        return 'Class-C Power Amplifier';
-      case 'class-b':
-      default:
-        return 'Class-B Power Amplifier';
-    }
-  };
-  
   // Clean up when component unmounts
   useEffect(() => {
     return () => {
